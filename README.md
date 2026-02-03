@@ -1,163 +1,95 @@
-# 📘 Technical Report  
-## Design and Implementation of a Persian AI-NLP Service with OCR Capability  
-### طراحی و پیاده‌سازی سرویس هوشمند پردازش زبان طبیعی فارسی با قابلیت OCR
 
----
+**ورودی‌ها:**
+- فایل (image/pdf/txt)
+- start_page (اختیاری)
+- end_page (اختیاری)
+- clean_text (Boolean)
 
-## 1. Introduction | مقدمه
-
-### فارسی
-با گسترش حجم اسناد دیجیتال و نیاز روزافزون به استخراج، تحلیل و خلاصه‌سازی اطلاعات متنی، طراحی سامانه‌های هوشمند پردازش زبان طبیعی (NLP) به‌ویژه برای زبان فارسی اهمیت ویژه‌ای یافته است.  
-هدف این پروژه، پیاده‌سازی یک **سرویس جامع و ماژولار NLP مبتنی بر هوش مصنوعی** است که بتواند اسناد متنی و غیرمتنی (تصاویر و PDFهای اسکن‌شده) را دریافت کرده، متن آن‌ها را استخراج، پاک‌سازی، پردازش و خلاصه‌سازی نماید.
-
-### English
-With the rapid growth of digital documents and the increasing demand for automatic text understanding, analysis, and summarization, intelligent Natural Language Processing (NLP) systems—especially for low-resource languages such as Persian—have become increasingly important.  
-The objective of this project is to design and implement a **modular AI-based NLP service** capable of ingesting both editable and non-editable documents, extracting textual content, preprocessing it, and producing structured and summarized outputs through an API.
-
----
-
-## 2. Project Overview | نمای کلی پروژه
-
-### فارسی
-سرویس **NLP-AI** به‌صورت ماژولار طراحی شده و شامل قابلیت‌های زیر است:
-- اصلاح و پاک‌سازی متن (Text Correction)
-- استخراج متن از اسناد (OCR)
-- خلاصه‌سازی متون (Summarization)
-- قابلیت توسعه برای طبقه‌بندی و استخراج اطلاعات
-
-طراحی اولیه پروژه، مبنای توسعه نسخه عملیاتی و پیشرفته فعلی قرار گرفته است.
-
-### English
-The **NLP-AI Service** is designed as a modular system providing the following capabilities:
-- Text correction and normalization
-- Optical Character Recognition (OCR)
-- Text summarization
-- Extensible architecture for classification and information extraction
-
----
-
-## 3. System Architecture | معماری سیستم
-
-### فارسی
-معماری پروژه به‌صورت لایه‌ای و توسعه‌پذیر پیاده‌سازی شده است:
-
-app/
-├── api/ # API Routes (FastAPI)
-├── core/ # Configuration & Settings
-├── services/ # OCR & NLP Services
-├── models/ # Data & ML Models
-└── db/ # Database Layer
-
-
-ویژگی‌های کلیدی:
-- FastAPI
-- تنظیمات مبتنی بر `.env`
-- استفاده از `pydantic_settings`
-- پایگاه داده پیش‌فرض SQLite
-
-### English
-The system follows a layered and extensible architecture with clear separation of concerns and environment-based configuration management.
-
----
-
-## 4. OCR Module | ماژول OCR
-
-### فارسی
-ماژول OCR از ورودی‌های زیر پشتیبانی می‌کند:
-- تصاویر (PNG, JPG, …)
-- PDF (اسکن‌شده یا متنی)
-- فایل‌های متنی (TXT)
-
-ویژگی‌ها:
-- تعیین بازه صفحات
-- پیش‌نمایش هوشمند PDFهای حجیم
-- OCR چندزبانه (فارسی + انگلیسی)
-- پاک‌سازی متن با LLM
-- اصلاح فاصله‌ها و نیم‌فاصله (ZWNJ)
-
-### English
-The OCR module supports multiple formats and includes multilingual OCR, performance-aware PDF processing, and LLM-based text cleanup.
-
----
-
-## 5. Text Preprocessing & Cleaning | پیش‌پردازش متن
-
-### فارسی
-- حذف نویز OCR
-- اصلاح غلط‌های املایی
-- تنظیم فاصله‌ها و نیم‌فاصله فارسی
-- حفظ معنای متن
-
-### English
-The preprocessing pipeline improves text quality through noise removal, spelling correction, and orthographic normalization.
-
----
-
-## 6. Text Chunking & Summarization | بخش‌بندی و خلاصه‌سازی
-
-### فارسی
-- تقسیم متن به بخش‌های منطقی
-- جلوگیری از قطع جملات
-- تولید خلاصه برای هر بخش
-
-روش‌ها:
-1. Rule-based
-2. آماری (TextRank)
-3. مبتنی بر مدل‌های زبانی (HuggingFace / LLM)
-
-### English
-Long documents are chunked safely and summarized using multiple strategies, including statistical and transformer-based models.
-
----
-
-## 7. Model Selection Rationale | انتخاب مدل
-
-### فارسی
-مدل **mT5 Multilingual XLSum** به‌دلیل:
-- عمومی بودن
-- مصرف منابع کمتر
-- بهینه‌سازی برای خلاصه‌سازی چندزبانه
-- عملکرد مناسب در فارسی
-
-انتخاب شد.
-
-### English
-mT5 XLSum was selected due to open access, efficiency, and strong multilingual summarization performance.
-
----
-
-## 8. API Design | طراحی API
-
-### فارسی
-
-POST /ocr
-
-
-ورودی:
-- فایل
-- بازه صفحات (اختیاری)
-- فعال‌سازی پاک‌سازی متن
-
-خروجی:
+**خروجی:**
 - نوع فایل
+- نام فایل
 - متن استخراج‌شده
-- وضعیت پاک‌سازی
-
-### English
-The OCR endpoint returns structured, API-ready results for downstream NLP tasks.
+- وضعیت پاک‌سازی متن
 
 ---
 
-## 9. Future Work | کارهای آتی
+## 5. ماژول خلاصه‌سازی متن (Summarization)
 
-### فارسی
-- ذخیره نتایج در دیتابیس
-- پردازش async
-- تست‌های واحد
-- Dockerization
-- بهبود OCR با مدل‌های پیش‌آموزش‌دیده
+### 5.1 اهداف ماژول خلاصه‌سازی
 
-### English
-Future work includes persistence, async processing, testing, containerization, and advanced OCR models.
+هدف ماژول Summarization ارائه خلاصه‌ای مفهومی، خوانا و قابل فهم از متون طولانی است، به‌گونه‌ای که اطلاعات کلیدی بدون از دست رفتن معنا حفظ شوند.
 
 ---
+
+### 5.2 روش‌های پیاده‌سازی‌شده
+
+چند رویکرد برای خلاصه‌سازی در پروژه پیاده‌سازی شده است:
+
+1. خلاصه‌سازی ساده (Rule-based)
+2. خلاصه‌سازی آماری با TextRank
+3. خلاصه‌سازی مبتنی بر مدل‌های زبانی (LLM-based)
+4. خلاصه‌سازی با مدل HuggingFace محلی
+
+---
+
+### 5.3 انتخاب و جایگزینی مدل خلاصه‌سازی
+
+در ابتدا از مدل **Mistral-7B-v0.1** برای خلاصه‌سازی استفاده شده بود. اما به دلایل زیر، این مدل با **mT5_multilingual_XLSum** جایگزین شد:
+
+- Mistral یک مدل gated است و نیاز به توکن دسترسی دارد.
+- حجم بالای مدل 7B اجرای آن را روی سرورهای معمول دشوار می‌کند.
+- mT5 XLSum به‌صورت خاص برای task خلاصه‌سازی چندزبانه طراحی شده است.
+- کیفیت مناسب برای زبان فارسی و مصرف منابع کمتر.
+
+این تغییر باعث ساده‌تر شدن استقرار سرویس و بهبود پایداری آن شد.
+
+---
+
+### 5.4 پردازش متون طولانی (Chunking)
+
+برای جلوگیری از قطع شدن جملات و افت کیفیت خلاصه‌سازی:
+
+- متن به بخش‌های منطقی بر اساس تعداد کلمات تقسیم می‌شود.
+- برای هر بخش یک خلاصه تولید می‌شود.
+- خلاصه‌ها به‌صورت پیوسته ترکیب می‌شوند.
+- الگوریتم `clean_summary` برای اطمینان از پایان صحیح جملات استفاده شده است.
+
+---
+
+## 6. یکپارچه‌سازی OCR و Summarization
+
+در روت ترکیبی `/letter-to-summary`، کل فرآیند به‌صورت یکپارچه انجام می‌شود:
+
+1. دریافت فایل ورودی
+2. استخراج متن با OCR
+3. اصلاح متن (در حالت advanced)
+4. خلاصه‌سازی متن
+5. بازگرداندن خروجی ساختارمند
+
+**خروجی شامل:**
+- متن استخراج‌شده
+- متن اصلاح‌شده (در صورت انتخاب)
+- متن خلاصه‌شده
+- اطلاعات فایل
+- سطح کیفیت انتخاب‌شده
+
+---
+
+## 7. وضعیت فعلی و کارهای در حال انجام
+
+موارد زیر در فاز توسعه یا برنامه‌ریزی قرار دارند:
+
+- ذخیره نتایج Summarization در پایگاه داده
+- مدیریت پردازش async با Celery یا RQ
+- نوشتن تست‌های واحد و یکپارچه
+- Dockerize کردن پروژه
+- بهینه‌سازی OCR با مدل‌های pretrained
+- اتصال مستقیم Summarizer به مدل‌های HuggingFace پیشرفته‌تر
+
+---
+
+## 8. نتیجه‌گیری (Conclusion)
+
+در این پروژه، یک سرویس جامع و ماژولار NLP برای پردازش متون فارسی طراحی و پیاده‌سازی شده است. ماژول OCR با ترکیب ابزارهای کلاسیک و مدل‌های زبانی مدرن، قادر به استخراج متن تمیز و قابل پردازش از اسناد مختلف است. همچنین ماژول خلاصه‌سازی با پشتیبانی از روش‌های متنوع، امکان تحلیل سریع و مؤثر اسناد طولانی را فراهم می‌کند.
+
+معماری ماژولار، انتخاب آگاهانه مدل‌ها و توجه به محدودیت‌های عملی استقرار، این پروژه را به بستری مناسب برای توسعه‌های آتی در حوزه پردازش زبان طبیعی تبدیل کرده است.
