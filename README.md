@@ -45,7 +45,7 @@
 ### 3.1 ساختار پوشه‌ها
 ساختار کلی پروژه به شکل زیر است:
 - `api/` : routeها و endpointهای FastAPI
-- `services/` یا `core/services/` : منطق پردازش ماژول‌ها (OCR، correction، classification، extraction، summarizer)
+- `services/` : منطق پردازش ماژول‌ها (OCR، correction، classification، extraction، summarizer)
 - `core/` : تنظیمات و پیکربندی (configuration)
 - `models/` و `db/` : مدل‌های داده و ساختار ذخیره‌سازی
 
