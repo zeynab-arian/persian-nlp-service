@@ -66,12 +66,6 @@
 - `MODEL_VOCAB_PATH`
 - `MODEL_CHECKPOINT_PATH`
 
-#### 3.2.2 اتصال دیتابیس
-ساخت URL به‌صورت پویا بر اساس env انجام می‌شود:
-`mysql+pymysql://user:password@host:port/smart`
-
-این طراحی، استقرار پروژه را در محیط‌های مختلف ساده‌تر و قابل کنترل می‌کند.
-
 ---
 
 ## 4. ماژول اصلاح متن (Text Correction)
