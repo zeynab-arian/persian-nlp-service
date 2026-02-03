@@ -297,7 +297,6 @@
 - ذخیره‌سازی نتایج Summarizer در دیتابیس (مدل جدا یا الحاق به اسناد)
 - افزودن Task Queue (Celery/RQ) برای پردازش async فایل‌های سنگین
 - افزودن تست‌های واحد/یکپارچه
-- Dockerize کردن پروژه (Dockerfile + docker-compose)
 - بهینه‌سازی OCR با مدل‌های pretrained یا تنظیمات پیشرفته Tesseract
 - ارتقای کیفیت Summarization با مدل‌های قوی‌تر HuggingFace
 
